@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
-#include "Time/Time.h"
-#include "Timing/Timing.h"
-#include "Event/Event.h"
+#include "Time.h"
+#include "Timing.h"
+#include "Event.h"
 
 using namespace planning;
 
@@ -120,7 +120,7 @@ void Essai2()
     Timing t;
     t.setDay("Mardi");
     t.setStart(Time(8,20));
-    t.setDuration(Time(90));
+    t.setDuree(Time(90));
     t.display();
     cout << endl;
     cout << "Jour  : " << t.getDay() << endl;
@@ -128,7 +128,7 @@ void Essai2()
     t.getStart().display();
     cout << endl;
     cout << "Duree : ";
-    t.getDuration().display();
+    t.getDuree().display();
     cout << endl;
   }
 

@@ -8,25 +8,37 @@ namespace planning
 {
     int Event::currentCode = 0;
 
-    Event::Event() // Classe :: fonction permet de dire ce qu'elle fait  , Quand c'est vide c'est constructeut par défaut
+    Event::Event()
         {
-        setCode(1);
-        title = nullptr;
-        setTitle("default");
+            timing = nullptr;
+            setCode(1);
+            title = nullptr;
+            setTitle("default");
         }
 
-    Event::Event( int c, const char* t)  // Quand en parametre c'est des int char etc c'est un initialisation
+    Event::Event( int c, const char* t) 
         {
          setCode(c);
          title = nullptr;
          setTitle(t);
         }
 
-    Event::Event(const Event & e){ // Quand en parametre c'est un objet de type de notre classe c'est le constructeur de copie
+    Event::Event(const Event & e)
+    { 
         setCode(e.getCode());
         title = nullptr;
         setTitle(e.getTitle());
-        }
+    }
+
+    Event::~Event()
+    {
+        if (title) 
+            delete[] title;
+
+        if (timing) 
+            delete timing;
+    }
+
     void Event::setCode(int c)
         {
             if(c<=0) return;
@@ -34,11 +46,19 @@ namespace planning
         }
 
     void Event::setTitle(const char* t)
+    {
+        if (title) delete[] title; 
+        if (t) 
         {
-            if(title) delete title;
-            title = new char [strlen(t)+1];
-            strcpy(title,t);
+            title = new char[strlen(t) + 1];
+            strcpy(title, t);
+        } 
+
+        else 
+        {
+            title = nullptr;
         }
+    }
 
     int Event::getCode() const
         {
@@ -56,7 +76,7 @@ namespace planning
     }
 
 
-    Timing* Event::getTiming() const 
+    const Timing* Event::getTiming() const 
     {
         return timing; 
     }
@@ -66,17 +86,9 @@ namespace planning
     {
         cout << "Event (" << code << ") : " << title << endl;
         if (timing != nullptr) {
-            timing->display(); // Appelle display() sur l'objet Timing
+            timing->display();
         } else {
             cout << "Timing n'est pas défini." << endl;
         }
     }
-
-
-    Event :: ~Event() // a chaque fois que c'est un pointeur faut le mettre dedans 
-        {
-            if(title)
-                delete title;
-        }
-
 }

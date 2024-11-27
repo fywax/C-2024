@@ -1,3 +1,6 @@
+#ifndef TIME // définis le début
+#define TIME
+
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
@@ -5,8 +8,6 @@ using namespace std;
 
 namespace planning
 {
-	#ifndef TIME // définis le début
-	#define TIME
 
 	class Time{
 		private : 
@@ -28,5 +29,5 @@ namespace planning
 			void display() const;
 	};
 
-	#endif
 }
+#endif

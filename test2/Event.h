@@ -1,17 +1,19 @@
+#ifndef EVENT
+#define EVENT
+
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
 #include <cstring>
-#include "../Timing/Timing.h"
+#include "Timing.h"
 
 namespace planning 
 {
-    #ifndef EVENT // définis le début
-    #define EVENT
+
 
     class Event {
         private : 
-            Timing * timing = nullptr;
+            Timing * timing;
             int code;
             char * title;
         public : 
@@ -23,13 +25,16 @@ namespace planning
 
 
             void setTiming(const Timing& timing);
-            Timing* getTiming() const;
+            const Timing* getTiming() const;
+
             void setCode(int c);
-            void setTitle(const char* t);
             int getCode() const;
+
+            void setTitle(const char* t);
             const char * getTitle() const;
+
             void display() const;
     };
 
-    #endif // définis la fin
 }
+#endif

@@ -224,7 +224,7 @@ void Essai4()
   cout << "***** Test des operateurs < > == de la classe Time *******************" << endl;
   cout << "**********************************************************************" << endl;
 
-  Time h1(12,35);
+  Time h1(10,20);
   cout << "h1 : ";
   h1.display();
 

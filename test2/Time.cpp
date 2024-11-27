@@ -34,6 +34,11 @@ namespace planning
 		setmin(cop.getmin());
 	}
 
+	Time::~Time()
+	{
+
+	}
+
 	void Time::sethour(int h)
 	{
 		if (h<0) return;
@@ -74,6 +79,4 @@ namespace planning
 		else
 			cout << min;
 	}
-
-	Time::~Time(){}
 }

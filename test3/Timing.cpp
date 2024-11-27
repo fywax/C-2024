@@ -43,6 +43,9 @@ namespace planning
         setDuration(cop.getDuration());
     }
 
+    Timing::~Timing() {}
+
+
     void Timing::setDay(const string day) {
         if(day == "Lundi" || day == "Mardi" || day == "Mercredi" || day == "Jeudi" ||
             day == "Vendredi" || day == "Samedi" || day == "Dimanche") 
@@ -96,5 +99,87 @@ namespace planning
         cout << endl;
     }
 
-    Timing::~Timing() {}
+
+    bool Timing::operator==(const Timing& t)
+    {
+        if(this->day == t.day)
+        {
+            if(this->start == t.start)
+            {
+                if(this->duration == t.duration)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    bool Timing::operator<(const Timing& t)  
+    {
+
+
+        if (J2C(this->day) < J2C(t.day)) 
+        {
+            return true;  
+        }
+        else 
+        {
+            if (J2C(this->day) == J2C(t.day)) 
+            {
+                if (this->start < t.start) 
+                {
+                    return true;  
+                }
+                else
+                {
+                    if (this->start == t.start) 
+                    {
+                        return this->duration < t.duration;
+                    } 
+                }
+            }
+        }
+        return false; 
+    }
+
+    bool Timing::operator>(const Timing& t)  
+    {
+
+
+        if (J2C(this->day) > J2C(t.day)) 
+        {
+            return true;  
+        }
+        else 
+        {
+            if (J2C(this->day) == J2C(t.day)) 
+            {
+                if (this->start > t.start) 
+                {
+                    return true;  
+                }
+                else
+                {
+                    if (this->start == t.start) 
+                    {
+                        return this->duration > t.duration;
+                    } 
+                }
+            }
+        }
+        return false; 
+    }
+
+    int Timing::J2C(const std::string& day) //jour à chiffre
+    {
+        if (day == "Monday") return 0;
+        if (day == "Tuesday") return 1;
+        if (day == "Wednesday") return 2;
+        if (day == "Thursday") return 3;
+        if (day == "Friday") return 4;
+        if (day == "Saturday") return 5;
+        if (day == "Sunday") return 6;
+        return -1;
+    }
 }

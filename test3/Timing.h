@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include "../Time/Time.h"
+#include "Time.h"
 
 using namespace std;
 
@@ -40,6 +40,12 @@ namespace planning
 	    Time getDuration() const; // Getter pour la durée
 
 	    void display() const; // Méthode pour afficher les informations de l'objet
+
+	    bool operator==(const Timing& t);
+        bool operator<(const Timing& t);
+        bool operator>(const Timing& t);
+
+        static int J2C(const std::string& day);
 	};
 }
 #endif // TIMING
