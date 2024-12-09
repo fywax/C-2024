@@ -2,13 +2,13 @@
 #include <time.h>
 using namespace std;
 
-//#include "Professor.h"
+#include "Professor.h"
 //#include "Group.h"
 //#include "Classroom.h"
 
 int  Menu();
-/*void Essai1();
-void Essai2();
+void Essai1();
+/*void Essai2();
 void Essai3();
 void Essai4();
 void Essai5();*/
@@ -24,8 +24,8 @@ int main(int argc,char* argv[])
     else choix = Menu();
     switch(choix)
     {
-      /*case 1 : Essai1(); break;
-      case 2 : Essai2(); break;
+      case 1 : Essai1(); break;
+      /*case 2 : Essai2(); break;
       case 3 : Essai3(); break;
       case 4 : Essai4(); break;
       case 5 : Essai5(); break;*/
@@ -61,7 +61,7 @@ int Menu()
 //           la classe Professor qui herite de Schedulable et qui contient le lastName (string) et le firstName (string) d'un Professor
 //           l'operateur << de Professor
 //           l'operateur d'affectation (=) de Professor
-/*void Essai1()
+void Essai1()
 {
   cout << endl << "----- 1.1 Test du constructeur par defaut de Professor ------------------------" << endl;
   Professor p1;
