@@ -3,15 +3,15 @@
 using namespace std;
 
 #include "Professor.h"
-//#include "Group.h"
-//#include "Classroom.h"
+#include "Group.h"
+#include "Classroom.h"
 
 int  Menu();
 void Essai1();
-/*void Essai2();
+void Essai2();
 void Essai3();
 void Essai4();
-void Essai5();*/
+void Essai5();
 
 int main(int argc,char* argv[])
 {
@@ -25,10 +25,10 @@ int main(int argc,char* argv[])
     switch(choix)
     {
       case 1 : Essai1(); break;
-      /*case 2 : Essai2(); break;
+      case 2 : Essai2(); break;
       case 3 : Essai3(); break;
       case 4 : Essai4(); break;
-      case 5 : Essai5(); break;*/
+      case 5 : Essai5(); break;
       default : fini = true ; break;
     }
   }
@@ -97,7 +97,7 @@ void Essai1()
 //           l'operateur << de Group
 //           l'operateur d'affectation (=) de Group
 
-/*void Essai2()
+void Essai2()
 {
   cout << endl << "----- 2.1 Test du constructeur par defaut --------------------------------------" << endl;
   Group g1;
@@ -131,7 +131,7 @@ void Essai1()
 //           l'operateur << de Classroom
 //           l'operateur d'affectation (=) de Classroom
 
-/*void Essai3()
+void Essai3()
 {
   cout << endl << "----- 3.1 Test du constructeur par defaut --------------------------------------" << endl;
   Classroom c1;
@@ -165,7 +165,7 @@ void Essai1()
 // A FAIRE : normalement rien...
 //           juste comprendre et tester le code ci-dessous
 
-/*void Essai4()
+void Essai4()
 {
   srand((unsigned)time(NULL));
 
@@ -205,7 +205,7 @@ void Essai1()
 // A FAIRE : normalement rien dans vos classes...
 //           juste comprendre et tester le code ci-dessous
 
-/*void Essai5()
+void Essai5()
 {
   srand((unsigned)time(NULL));
 
@@ -247,4 +247,3 @@ void Essai1()
   cout << endl << "----- 5.3 Liberation memoire ---------------------------------------------------" << endl;
   for (int i=0 ; i<10 ; i++) delete schedulables[i];
 }
-*/

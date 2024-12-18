@@ -1,5 +1,5 @@
-Test4: Time.o Timing.o Event.o Test4.o Professor.o Group.o Classroom.o schedulable.o
-	g++ -o Test4 Time.o Timing.o Event.o Professor.o Group.o Classroom.o schedulable.o Test4.o
+Test5: Time.o Timing.o Event.o Test5.o Professor.o Group.o Classroom.o schedulable.o Exception.o
+	g++ -o Test5 Time.o Timing.o Event.o Professor.o Group.o Classroom.o schedulable.o Exception.o Test5.o
 	
 Time.o: Time.cpp Time.h
 	g++ -c Time.cpp -o Time.o
@@ -22,5 +22,8 @@ Classroom.o: Classroom.cpp Classroom.h
 schedulable.o: schedulable.cpp schedulable.h
 	g++ -c schedulable.cpp -o schedulable.o
 
-Test4.o: Test4.cpp
-	g++ -c Test4.cpp -o Test4.o
+Exception.o: Exception.cpp Exception.h
+	g++ -c Exception.cpp -o Exception.o
+
+Test5.o: Test5.cpp
+	g++ -c Test5.cpp -o Test5.o

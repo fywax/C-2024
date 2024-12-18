@@ -343,7 +343,7 @@ void Essai11()
     cin.ignore();
     if (ch == 'o') e.setTiming(t);
     cout << "Voici le Timing de l'Event planifie : ";
-    e.getTiming().display();  // !!!
+    e.getTiming()->display();  // !!!
   }
   // ...
 }
