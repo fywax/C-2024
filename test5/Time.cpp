@@ -35,17 +35,20 @@ namespace planning
 
     void Time::setHour(int h)
     {
-        if (h < 0) return;
+        if (h < 0 || h >= 24) 
+        {
+            throw TimeException(TimeException::INVALID_HOUR, to_string(h) + " invalide");
+            return;
+        }
         this->hour = h;
     }
 
     void Time::setMinute(int m)
     {
-        if (m < 0) return;
-        if (m>=60)
+        if (m < 0 || m >= 60)
         {
-            setHour(getHour()+(m/60));
-            m = (m%60); //62 = 62 - (62/60)
+            throw TimeException(TimeException::INVALID_MINUTE, to_string(m) + " invalide");
+            return;
         }
         this->min = m;
     }
@@ -85,17 +88,26 @@ namespace planning
     Time Time::operator+(int n) const
     {
         Time result(*this); // Copie de l'objet courant
-        result.min += n; // Ajout de n minutes
+        int hour, min;
+        hour = n / 60;
+        min = n % 60;
 
-        // Normalisation des minutes et des heures
-        while (result.min >= 60) {
-            result.hour++;
-            result.min -= 60;
-        }
-        while (result.hour >= 24) {
-            result.hour -= 24;
+
+        if(result.min + min >= 60)
+        {
+            hour += 1;
+            min -= 60;
         }
 
+        if(result.hour + hour >= 24)
+        {
+            throw TimeException(TimeException::OVERFLOW, "Dépassement de 23h59");
+        }
+        else
+        {
+            result.hour += hour;
+            result.min += min;
+        }
         return result;
     }
 
@@ -109,16 +121,21 @@ namespace planning
     Time Time::operator+(const Time& t) const
     {
         Time result(*this); // Copie de l'objet courant
-        result.hour += t.hour; 
-        result.min += t.min; 
-
-        // Normalisation
-        while (result.min >= 60) {
-            result.hour++;
+        
+        if(result.min + t.min >= 60)
+        {
+            result.hour += 1;
             result.min -= 60;
         }
-        while (result.hour >= 24) {
-            result.hour -= 24;
+
+        if(result.hour + t.hour >= 24)
+        {
+            throw TimeException(TimeException::OVERFLOW, "Dépassement de 23h59");
+        }
+        else
+        {
+            result.hour += t.hour;
+            result.min += t.min;
         }
 
         return result;
@@ -135,8 +152,9 @@ namespace planning
             result.hour--;
             result.min += 60;
         }
-        while (result.hour < 0) {
-            result.hour += 24;
+        if((result.min < 0 && result.hour == 0) || result.hour < 0)
+        {
+            throw TimeException(TimeException::OVERFLOW, "Dépassement de 00h00");
         }
 
         return result;
@@ -146,22 +164,24 @@ namespace planning
     Time Time::operator-(const Time& t) const
     {
         Time result(*this); // Copie de l'objet courant
+        
+        if(result.min - t.min < 0)
+        {
+            result.hour -= 1;
+            result.min += 60;
+        }
         result.hour -= t.hour;
         result.min -= t.min;
 
-        // Normalisation
-        while (result.min < 0) {
-            result.hour--;
-            result.min += 60;
-        }
-        while (result.hour < 0) {
-            result.hour += 24;
+        if((result.min < 0 && result.hour == 0) || result.hour < 0)
+        {
+            throw TimeException(TimeException::OVERFLOW, "Dépassement de 00h00");
         }
 
         return result;
     }
 
-    // Surcharge pour soustraire un nombre entier d'un objet Time
+    // Surcharge pour soustraire un objet time d'une durée
     Time operator-(int n, const Time& t)
     {
         int hour, min;
@@ -231,62 +251,60 @@ namespace planning
 
 
 
-	//ATTENTION PROBLEME SI ON SEPARE PAR UN ESPACE !
-	istream& operator>>(istream& entree, Time& t) 
-	{ 
-	  int hour, min, erreur = 0;
-	  char espace; 
+    istream& operator>>(istream& entree, Time& t)
+    {
+        string tmp;
+        Time timeTemp;
 
-	  entree >> hour >> espace >> min;
+        entree >> tmp;
 
-	  t.setHour(hour);
-	  t.setMinute(min);
+        if (tmp.size() != 5) 
+        {
+            cout << "Invalid Length !" << endl;
+            exit(0);
+        }
 
-	  return entree; 
-	} 
+        timeTemp.setHour(stoi(tmp.substr(0,2)));
+        timeTemp.setMinute(stoi(tmp.substr(3,2)));
+
+        if (timeTemp.getHour() < 0 || timeTemp.getHour() > 24 || timeTemp.getMinute() < 0 || timeTemp.getMinute() > 60)
+        {
+            cout << "Invalid Time !" << endl;
+            exit(0);
+        }
+
+        t.setHour(timeTemp.getHour());
+        t.setMinute(timeTemp.getMinute());
+
+        return entree;
+    }
 
 
 
-	Time& Time::operator--() 
-	{
-	    min -= 30;
-	    if (min < 0) 
-	    {
-	        min += 60; 
-	        hour--;
-	        if (hour < 0) {
-	            hour += 24;
-	        }
-	    }
-	    return *this; 
-	}
+        Time& Time::operator++() // Pré-incrémentation
+    {
+        *this = *this + 30; // Modifier directement l'objet courant
+        return *this;       // Retourner une référence à l'objet modifié
+    }
 
-	Time Time::operator++(int) 
-	{
-	    Time temp = *this;
-	    ++(*this);
-	    return temp;
-	}
+    Time Time::operator++(int) // Post-incrémentation
+    {
+        Time time(*this);      // Créer une copie de l'objet courant
+        *this = *this + 30;    // Modifier l'objet courant
+        return time;           // Retourner l'objet avant la modification
+    }
 
-	Time& Time::operator++() 
-	{
-	    min += 30;
-	    if (min >= 60) 
-	    {
-	        min -= 60;
-	        hour++;
-	        if (hour >= 24) 
-	        {
-	            hour -= 24; 
-	        }
-	    }
-	    return *this; 
-	}
+    Time& Time::operator--() // Pré-décrémentation
+    {
+        *this = *this - 30; // Modifier directement l'objet courant
+        return *this;       // Retourner une référence à l'objet modifié
+    }
 
-	Time Time::operator--(int) 
-	{
-	    Time temp = *this; 
-	    --(*this);
-	    return temp; 
-	}
-}	
+    Time Time::operator--(int) // Post-décrémentation
+    {
+        Time time(*this);      // Créer une copie de l'objet courant
+        *this = *this - 30;    // Modifier l'objet courant
+        return time;           // Retourner l'objet avant la modification
+    }
+
+}

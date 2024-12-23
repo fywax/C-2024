@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include <cstring>
+#include "TimeException.h"
 
 namespace planning
 {

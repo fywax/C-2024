@@ -11,11 +11,13 @@ int TimeException::OVERFLOW = 3;
 TimeException::TimeException()
 {
 	setCode(0);
+	setMessage("");
 }
 
-TimeException::TimeException(code)
+TimeException::	TimeException(int code, const string& message)
 {
 	setCode(code);
+	setMessage(message);
 }
 
 TimeException::TimeException(const TimeException& cop)
@@ -23,7 +25,7 @@ TimeException::TimeException(const TimeException& cop)
     setCode(cop.getCode());
 }
 
-void TimeException::setCode(code)
+void TimeException::setCode(int code)
 {
 	this->code = code;
 }

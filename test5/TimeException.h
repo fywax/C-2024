@@ -17,12 +17,12 @@ class TimeException : public Exception{
     static int OVERFLOW;
      
 	TimeException();
-	TimeException(int id, const string& nom);
+	TimeException(int code, const string& message);
     TimeException(const TimeException& cop);
     ~TimeException();  
 
     void setCode(int code);
-    int getCode();
+    int getCode() const;
 };
 
 #endif
