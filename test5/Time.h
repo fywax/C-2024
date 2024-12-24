@@ -45,9 +45,9 @@ namespace planning
         friend ostream& operator<<(ostream& sortie,const Time& t);
         friend istream& operator>> (istream& entree, Time& t); 
 
-	    Time& operator++(); 
+	    Time operator++(); 
 	    Time operator++(int); 
-	    Time& operator--();
+	    Time operator--();
 	    Time operator--(int);
     };
 

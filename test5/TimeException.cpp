@@ -4,35 +4,40 @@ using namespace std;
 #include <cstring>
 #include "TimeException.h"
 
-int TimeException::INVALID_HOUR = 1;
-int TimeException::INVALID_MINUTE = 2;
-int TimeException::OVERFLOW = 3;
-
-TimeException::TimeException()
+namespace planning
 {
-	setCode(0);
-	setMessage("");
-}
 
-TimeException::	TimeException(int code, const string& message)
-{
-	setCode(code);
-	setMessage(message);
-}
+	int TimeException::INVALID_HOUR = 1;
+	int TimeException::INVALID_MINUTE = 2;
+	int TimeException::OVERFLOW = 3;
 
-TimeException::TimeException(const TimeException& cop)
-{
-    setCode(cop.getCode());
-}
+	TimeException::TimeException()
+	{
+		setCode(0);
+		setMessage("");
+	}
 
-void TimeException::setCode(int code)
-{
-	this->code = code;
-}
+	TimeException::	TimeException(int code, const string& message)
+	{
+		setCode(code);
+		setMessage(message);
+	}
 
-int TimeException::getCode() const
-{
-	return this->code;
-}
+	TimeException::TimeException(const TimeException& cop)
+	{
+	    setCode(cop.getCode());
+	}
 
-TimeException::~TimeException() {}
+	void TimeException::setCode(int code)
+	{
+		this->code = code;
+	}
+
+	int TimeException::getCode() const
+	{
+		return this->code;
+	}
+
+	TimeException::~TimeException() {}
+
+}

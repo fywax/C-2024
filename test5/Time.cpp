@@ -85,7 +85,7 @@ namespace planning
     Time::~Time() {}
 
     // Surcharge pour ajouter des minutes
-    Time Time::operator+(int n) const
+     Time Time::operator+(int n) const
     {
         Time result(*this); // Copie de l'objet courant
         int hour, min;
@@ -145,20 +145,22 @@ namespace planning
     Time Time::operator-(int n) const
     {
         Time result(*this); // Copie de l'objet courant
-        result.min -= n; // Soustraction de n minutes
 
-        // Normalisation des minutes et des heures
-        while (result.min < 0) {
-            result.hour--;
-            result.min += 60;
-        }
-        if((result.min < 0 && result.hour == 0) || result.hour < 0)
-        {
+        // Soustraire les minutes
+        int totalMinutes = result.hour * 60 + result.min - n;
+
+        // Vérifier si nous tombons sous 00h00
+        if (totalMinutes < 0) {
             throw TimeException(TimeException::OVERFLOW, "Dépassement de 00h00");
         }
 
+        // Normaliser le temps dans la plage 0-1439 minutes
+        result.hour = totalMinutes / 60;
+        result.min = totalMinutes % 60;
+
         return result;
     }
+
 
     // Surcharge pour soustraire un objet Time d'un autre
     Time Time::operator-(const Time& t) const
@@ -281,30 +283,31 @@ namespace planning
 
 
 
-        Time& Time::operator++() // Pré-incrémentation
+    Time Time::operator++() // Pré-incrémentation
     {
-        *this = *this + 30; // Modifier directement l'objet courant
+        *this = *this + 30; // Ajouter 30 minutes
         return *this;       // Retourner une référence à l'objet modifié
     }
 
     Time Time::operator++(int) // Post-incrémentation
     {
         Time time(*this);      // Créer une copie de l'objet courant
-        *this = *this + 30;    // Modifier l'objet courant
+        *this = *this + 30;    // Ajouter 30 minutes
         return time;           // Retourner l'objet avant la modification
     }
 
-    Time& Time::operator--() // Pré-décrémentation
+    Time Time::operator--() // Pré-décrémentation
     {
-        *this = *this - 30; // Modifier directement l'objet courant
+        *this = *this - 30; // Soustraire 30 minutes
         return *this;       // Retourner une référence à l'objet modifié
     }
 
     Time Time::operator--(int) // Post-décrémentation
     {
         Time time(*this);      // Créer une copie de l'objet courant
-        *this = *this - 30;    // Modifier l'objet courant
+        *this = *this - 30;    // Soustraire 30 minutes
         return time;           // Retourner l'objet avant la modification
     }
+
 
 }

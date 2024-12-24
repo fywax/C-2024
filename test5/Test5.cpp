@@ -5,6 +5,7 @@
 #include "Event.h"
 #include "Exception.h"
 #include "TimeException.h"
+#include "TimingException.h"
 
 using namespace std;
 using namespace planning;

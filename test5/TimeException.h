@@ -7,22 +7,27 @@ using namespace std;
 #ifndef TIMEEXCEPTION // définis le début
 #define TIMEEXCEPTION
 
-class TimeException : public Exception{
-    private:
-        int code;
+namespace planning
+{ 
 
-    public:
-    static int INVALID_HOUR;
-    static int INVALID_MINUTE;
-    static int OVERFLOW;
-     
-	TimeException();
-	TimeException(int code, const string& message);
-    TimeException(const TimeException& cop);
-    ~TimeException();  
+    class TimeException : public Exception{
+        private:
+            int code;
 
-    void setCode(int code);
-    int getCode() const;
-};
+        public:
+        static int INVALID_HOUR;
+        static int INVALID_MINUTE;
+        static int OVERFLOW;
+         
+    	TimeException();
+    	TimeException(int code, const string& message);
+        TimeException(const TimeException& cop);
+        ~TimeException();  
+
+        void setCode(int code);
+        int getCode() const;
+    };
+
+}
 
 #endif

@@ -1,5 +1,5 @@
-Test5: Time.o Timing.o Event.o Test5.o Professor.o Group.o Classroom.o schedulable.o Exception.o TimeException.o
-	g++ -o Test5 Time.o Timing.o Event.o Professor.o Group.o Classroom.o schedulable.o Exception.o TimeException.o Test5.o
+Test5: Time.o Timing.o Event.o Test5.o Professor.o Group.o Classroom.o schedulable.o Exception.o TimeException.o TimingException.o
+	g++ -o Test5 Time.o Timing.o Event.o Professor.o Group.o Classroom.o schedulable.o Exception.o TimeException.o TimingException.o Test5.o
 	
 Time.o: Time.cpp Time.h
 	g++ -c Time.cpp -o Time.o
@@ -27,6 +27,9 @@ Exception.o: Exception.cpp Exception.h
 
 TimeException.o: TimeException.cpp TimeException.h
 	g++ -c TimeException.cpp -o TimeException.o
+
+TimingException.o: TimingException.cpp TimingException.h
+	g++ -c TimingException.cpp -o TimingException.o
 
 Test5.o: Test5.cpp
 	g++ -c Test5.cpp -o Test5.o
